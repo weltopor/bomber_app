@@ -1,17 +1,57 @@
-export class MovementSystem{
+export class MovementSystem {
+
+    constructor(
+        collision
+    ) {
+
+        this.collision =
+            collision;
+    }
 
     update(
         player,
         input
-    ){
+    ) {
 
-        player.x +=
+        const nextX =
+
+            player.x +
+
             input.x *
             player.speed;
 
-        player.y +=
+        const nextY =
+
+            player.y +
+
             input.y *
             player.speed;
+
+        if (
+
+            this.collision.canMove(
+                nextX,
+                player.y
+            )
+
+        ) {
+
+            player.x =
+                nextX;
+        }
+
+        if (
+
+            this.collision.canMove(
+                player.x,
+                nextY
+            )
+
+        ) {
+
+            player.y =
+                nextY;
+        }
     }
 
 }

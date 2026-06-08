@@ -29,6 +29,11 @@ import {
 }
 from "./telegram/telegramUser.js";
 
+import {
+    BombButton
+}
+from "./ui/BombButton.js";
+
 const tg =
     initTelegram();
 
@@ -56,10 +61,16 @@ canvas.height =
 const joystick =
     new Joystick();
 
+const bombButton =
+    new BombButton();
+
 const input =
     new InputSystem(
         joystick
     );
+
+input.bombButton =
+    bombButton;
 
 const game =
     new Game(
