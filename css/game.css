@@ -1,0 +1,10 @@
+#gameCanvas{
+
+    flex:1;
+
+    width:100%;
+
+    background:#1c1c1c;
+
+    image-rendering:pixelated;
+}
