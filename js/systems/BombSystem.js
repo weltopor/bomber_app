@@ -1,16 +1,17 @@
-import {
-    Bomb
-}
+import { Bomb }
 from "../entities/Bomb.js";
 
-import {
-    Explosion
-}
+import { Explosion }
 from "../entities/Explosion.js";
+
+import { TILES }
+from "../map/tiles.js";
 
 export class BombSystem {
 
-    constructor() {
+    constructor(map) {
+
+        this.map = map;
 
         this.bombs = [];
 
@@ -19,19 +20,25 @@ export class BombSystem {
 
     placeBomb(player) {
 
+        const bombX =
+            Math.floor(
+                player.x + 0.5
+            );
+
+        const bombY =
+            Math.floor(
+                player.y + 0.5
+            );
+
         const alreadyExists =
 
             this.bombs.some(
 
                 bomb =>
 
-                    bomb.x ===
-                    Math.floor(player.x)
+                    bomb.x === bombX &&
 
-                    &&
-
-                    bomb.y ===
-                    Math.floor(player.y)
+                    bomb.y === bombY
 
             );
 
@@ -41,9 +48,10 @@ export class BombSystem {
         this.bombs.push(
 
             new Bomb(
-                player.x,
-                player.y
+                bombX,
+                bombY
             )
+
         );
     }
 
@@ -122,9 +130,33 @@ export class BombSystem {
 
         ];
 
+        for (const cell of cells) {
+
+            const tile =
+
+                this.map.getTile(
+                    cell.x,
+                    cell.y
+                );
+
+            if (
+                tile ===
+                TILES.CRATE
+            ) {
+
+                this.map.setTile(
+                    cell.x,
+                    cell.y,
+                    TILES.EMPTY
+                );
+            }
+        }
+
         this.explosions.push(
 
-            new Explosion(cells)
+            new Explosion(
+                cells
+            )
 
         );
     }

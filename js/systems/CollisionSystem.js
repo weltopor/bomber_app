@@ -10,23 +10,54 @@ export class CollisionSystem {
 
     canMove(x, y) {
 
-        const tileX =
+        const PLAYER_SIZE = 0.7;
+
+        const left =
             Math.floor(x);
 
-        const tileY =
-            Math.floor(y);
-
-        const tile =
-            this.map.getTile(
-                tileX,
-                tileY
+        const right =
+            Math.floor(
+                x + PLAYER_SIZE
             );
 
-        return (
+        const top =
+            Math.floor(y);
 
-            tile !== TILES.WALL &&
+        const bottom =
+            Math.floor(
+                y + PLAYER_SIZE
+            );
 
-            tile !== TILES.CRATE
+        const tiles = [
+
+            this.map.getTile(
+                left,
+                top
+            ),
+
+            this.map.getTile(
+                right,
+                top
+            ),
+
+            this.map.getTile(
+                left,
+                bottom
+            ),
+
+            this.map.getTile(
+                right,
+                bottom
+            )
+
+        ];
+
+        return tiles.every(
+
+            tile =>
+
+                tile !== TILES.WALL &&
+                tile !== TILES.CRATE
 
         );
     }
